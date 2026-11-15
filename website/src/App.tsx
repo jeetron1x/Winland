@@ -3,13 +3,13 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+import { ParticleCloak } from './components/ParticleCloak';
 import { TopBanner } from './components/TopBanner';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { IslandShowcase } from './components/IslandShowcase';
 import { WidgetsShowcase } from './components/WidgetsShowcase';
 import { TaskbarShowcase } from './components/TaskbarShowcase';
-import { ParticleCloak } from './components/ParticleCloak';
 import { PerformanceGrid } from './components/PerformanceGrid';
 import { FaqAccordion } from './components/FaqAccordion';
 import { FinalCta } from './components/FinalCta';
@@ -49,7 +49,10 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-neutral text-secondary font-sans selection:bg-primary-20 selection:text-primary-80 flex flex-col relative">
+    <div className="min-h-screen bg-black text-secondary font-sans selection:bg-primary-20 selection:text-primary-80 flex flex-col relative overflow-x-hidden">
+      {/* Interactive Particle Cloak Fullscreen Background */}
+      <ParticleCloak />
+
       {/* Subtle Noise Texture */}
       <div className="noise-overlay" />
 
@@ -60,7 +63,7 @@ export const App: React.FC = () => {
       <Navbar onOpenDownload={() => setIsDownloadOpen(true)} />
 
       {/* Main Content */}
-      <main className="flex-1">
+      <main className="flex-1 relative z-10">
         {/* 2. Hero with Real Desktop & Interactive Island */}
         <Hero onOpenDownload={() => setIsDownloadOpen(true)} />
 
@@ -69,9 +72,6 @@ export const App: React.FC = () => {
 
         {/* 4. Desktop Widgets Showcase */}
         <WidgetsShowcase />
-
-        {/* 4.5. Interactive Particle Cloak Veil */}
-        <ParticleCloak />
 
         {/* 5. Modern Taskbar Showcase */}
         <TaskbarShowcase />

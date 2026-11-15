@@ -19,8 +19,8 @@ export default {
         neutral: '#000000',
         page: '#000000',
         surface: {
-          DEFAULT: '#0b0b0d',
-          2: '#18181b',
+          DEFAULT: 'rgba(12, 12, 16, 0.78)',
+          2: 'rgba(24, 24, 28, 0.72)',
         },
         error: '#ff5a67',
         'border-subtle': 'rgba(255, 255, 255, 0.08)',

@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import { Sparkles } from 'lucide-react';
 
 interface Particle {
   homeX: number;
@@ -12,13 +11,11 @@ interface Particle {
 }
 
 export const ParticleCloak: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const container = containerRef.current;
     const canvas = canvasRef.current;
-    if (!container || !canvas) return;
+    if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -34,12 +31,15 @@ export const ParticleCloak: React.FC = () => {
     let isTouch = false;
 
     const resize = () => {
-      const rect = container.getBoundingClientRect();
-      w = rect.width;
-      h = rect.height;
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
+      w = window.innerWidth;
+      h = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       // Grid step: max(9, min(w, h) / 22) px
@@ -72,54 +72,55 @@ export const ParticleCloak: React.FC = () => {
     window.addEventListener('resize', resize);
 
     const onMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      targetPointer.x = e.clientX - rect.left;
-      targetPointer.y = e.clientY - rect.top;
+      targetPointer.x = e.clientX;
+      targetPointer.y = e.clientY;
       hasEntered = true;
     };
 
-    const onMouseLeave = () => {
-      hasEntered = false;
+    const onMouseLeave = (e: MouseEvent) => {
+      // Pointer left browser window
+      if (!e.relatedTarget && !e.toElement) {
+        hasEntered = false;
+      }
     };
 
     const onTouchStart = (e: TouchEvent) => {
       isTouch = true;
       hasEntered = true;
       if (e.touches[0]) {
-        const rect = canvas.getBoundingClientRect();
-        targetPointer.x = e.touches[0].clientX - rect.left;
-        targetPointer.y = e.touches[0].clientY - rect.top;
+        targetPointer.x = e.touches[0].clientX;
+        targetPointer.y = e.touches[0].clientY;
       }
     };
 
     const onTouchMove = (e: TouchEvent) => {
       if (e.touches[0]) {
-        const rect = canvas.getBoundingClientRect();
-        targetPointer.x = e.touches[0].clientX - rect.left;
-        targetPointer.y = e.touches[0].clientY - rect.top;
+        targetPointer.x = e.touches[0].clientX;
+        targetPointer.y = e.touches[0].clientY;
       }
     };
 
-    canvas.addEventListener('mousemove', onMouseMove);
-    canvas.addEventListener('mouseleave', onMouseLeave);
-    canvas.addEventListener('touchstart', onTouchStart, { passive: true });
-    canvas.addEventListener('touchmove', onTouchMove, { passive: true });
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    document.addEventListener('mouseleave', onMouseLeave);
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
 
-      // Before pointer has entered (or permanent drift on touch): slow Lissajous
+      // Before pointer has entered: drift on slow Lissajous so cloak breathes on its own
+      // On touch: keep that drift permanently
       if (!hasEntered || isTouch) {
         const t = performance.now() * 0.001;
-        const driftX = w * 0.5 + Math.sin(t * 0.8) * (w * 0.3);
-        const driftY = h * 0.5 + Math.sin(t * 1.3) * (h * 0.22);
+        const driftX = w * 0.5 + Math.sin(t * 0.8) * (w * 0.32);
+        const driftY = h * 0.5 + Math.sin(t * 1.3) * (h * 0.24);
 
         if (!hasEntered) {
           targetPointer.x = driftX;
           targetPointer.y = driftY;
         } else if (isTouch) {
-          targetPointer.x = targetPointer.x * 0.95 + driftX * 0.05;
-          targetPointer.y = targetPointer.y * 0.95 + driftY * 0.05;
+          targetPointer.x = targetPointer.x * 0.94 + driftX * 0.06;
+          targetPointer.y = targetPointer.y * 0.94 + driftY * 0.06;
         }
       }
 
@@ -140,7 +141,7 @@ export const ParticleCloak: React.FC = () => {
         const dy = p.y - easedPointer.y;
         const d = Math.sqrt(dx * dx + dy * dy);
 
-        // if d < R: push particle directly away from pointer along its own normal
+        // if d < R: push particle directly away from pointer by f along normal
         if (d < R) {
           const f = Math.pow(1 - d / R, 2) * 3.4;
           const dist = d || 0.001;
@@ -180,55 +181,18 @@ export const ParticleCloak: React.FC = () => {
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', resize);
-      canvas.removeEventListener('mousemove', onMouseMove);
-      canvas.removeEventListener('mouseleave', onMouseLeave);
-      canvas.removeEventListener('touchstart', onTouchStart);
-      canvas.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseleave', onMouseLeave);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
     };
   }, []);
 
   return (
-    <section className="py-20 px-4 max-w-6xl mx-auto">
-      
-      <div className="text-center max-w-2xl mx-auto mb-10">
-        <span className="text-caption font-mono uppercase tracking-widest text-primary mb-2 inline-flex items-center gap-1.5">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Interactive Canvas Cloak</span>
-        </span>
-        <h2 className="font-display font-bold text-headline-sm text-secondary">
-          Hover to part the veil.
-        </h2>
-        <p className="text-body-sm text-tertiary mt-2">
-          Move your cursor over the particle grid below. It parts organically under pointer pressure and knits itself back together with spring dynamics.
-        </p>
-      </div>
-
-      <div
-        ref={containerRef}
-        className="relative w-full h-[360px] sm:h-[440px] md:h-[500px] bg-black border border-border-strong rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center select-none"
-      >
-        {/* UNDERNEATH: Plate of content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 pointer-events-none z-10">
-          <h2 className="font-display font-extrabold text-headline-lg tracking-tight bg-gradient-to-r from-white via-primary to-primary-80 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(251,110,144,0.4)]">
-            WINLAND
-          </h2>
-          <p className="font-mono text-caption text-zinc-400 tracking-[0.2em] uppercase mt-4 max-w-xl">
-            Sub-millisecond Spring Dynamics · DirectX 12 Hardware Accelerated · By Jeetron1x
-          </p>
-        </div>
-
-        {/* THE CLOAK: Canvas 2D over normal DOM */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full z-20 cursor-crosshair"
-        />
-
-        {/* Bottom instruction hint */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none text-[11px] font-mono text-zinc-600 tracking-wider">
-          MOVE CURSOR TO DISPLACE CLOTH
-        </div>
-      </div>
-
-    </section>
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 w-full h-full pointer-events-none z-0"
+      aria-hidden="true"
+    />
   );
 };
