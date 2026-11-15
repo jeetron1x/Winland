@@ -1,0 +1,43 @@
+# Internal scripts & tooling
+run.cmd
+run.ps1
+launch_detached.ps1
+test_run.ps1
+docs/
+packaging/
+dist/
+
+# Build & binaries
+bin/
+obj/
+*.pdb
+*.pfx
+*.zip
+
+# Source code & prototypes (protected from reverse engineering)
+prototypes/
+installer/
+scratch/
+lyriic_*.js
+lyriic_*.cjs
+*.cs
+*.xaml
+
+# Dist layouts (installer binary is published via GitHub Releases)
+dist/Winland/
+dist/msix/
+dist/setup/
+dist/*.msix
+dist/Winland-Setup.exe
+dist/Winland-payload.zip
+dist/Winland-exe/
+packaging/*.pfx
+packaging/Jeetron1x.pfx
+packaging/Winland.pfx
+
+# IDE & OS
+.vs/
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
