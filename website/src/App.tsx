@@ -9,6 +9,7 @@ import { Hero } from './components/Hero';
 import { IslandShowcase } from './components/IslandShowcase';
 import { WidgetsShowcase } from './components/WidgetsShowcase';
 import { TaskbarShowcase } from './components/TaskbarShowcase';
+import { ParticleCloak } from './components/ParticleCloak';
 import { PerformanceGrid } from './components/PerformanceGrid';
 import { FaqAccordion } from './components/FaqAccordion';
 import { FinalCta } from './components/FinalCta';
@@ -68,6 +69,9 @@ export const App: React.FC = () => {
 
         {/* 4. Desktop Widgets Showcase */}
         <WidgetsShowcase />
+
+        {/* 4.5. Interactive Particle Cloak Veil */}
+        <ParticleCloak />
 
         {/* 5. Modern Taskbar Showcase */}
         <TaskbarShowcase />
