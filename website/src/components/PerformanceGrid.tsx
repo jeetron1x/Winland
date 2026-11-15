@@ -5,8 +5,8 @@ export const PerformanceGrid: React.FC = () => {
   const specs = [
     {
       icon: <Layers className="w-5 h-5 text-primary" />,
-      title: '120 FPS DirectComposition',
-      desc: 'Sub-millisecond spring dynamics and micro-interactions built on Windows hardware-accelerated DirectX composition for high-refresh rate displays.'
+      title: 'DirectComposition Hardware Engine',
+      desc: 'Sub-millisecond spring dynamics and micro-interactions built on native Windows DirectX composition for seamless desktop responsiveness.'
     },
     {
       icon: <Cpu className="w-5 h-5 text-primary" />,

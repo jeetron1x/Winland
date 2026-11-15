@@ -3,6 +3,7 @@
 > **The Next-Generation Dynamic Island & Modern Taskbar for Windows**  
 > *Crafted with precision by [Jeetron1x](https://github.com/jeetron1x)*
 
+[![Website](https://img.shields.io/badge/Website-winland.cc.cd-00f2fe?style=for-the-badge)](https://winland.cc.cd)
 [![Release](https://img.shields.io/github/v/release/jeetron1x/Winland?color=00f2fe&style=for-the-badge)](https://github.com/jeetron1x/Winland/releases/latest)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-blue?style=for-the-badge)](https://github.com/jeetron1x/Winland)
 [![Publisher](https://img.shields.io/badge/Publisher-Jeetron1x-blueviolet?style=for-the-badge)](https://github.com/jeetron1x)
@@ -17,7 +18,7 @@
 ### ✨ Highlights
 
 - **🏝️ Ultra-Fluid Dynamic Island:**
-  - 120 FPS high-refresh spring animations and micro-interactions.
+  - Sub-millisecond native spring animations and micro-interactions.
   - Interactive notification hub, quick settings, device status, and clipboard history.
   - Custom surface materials: Glass, Translucent, Opaque, and adaptive dynamic Album Cover.
 - **🎵 Real-Time Music Player & Visualizer:**
