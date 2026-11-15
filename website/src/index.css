@@ -1,0 +1,67 @@
+@import "@fontsource/bricolage-grotesque/700.css";
+@import "@fontsource/bricolage-grotesque/800.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neutral: #000000;
+  --surface: #0b0b0d;
+  --surface-2: #18181b;
+  --primary: #fb6e90;
+  --primary-80: #f99ab0;
+  --primary-60: #fbc0cf;
+  --primary-20: #3b1a26;
+  --secondary: #f4f4f5;
+  --on-surface: #f4f4f5;
+  --tertiary: #d4d4d8;
+  --error: #ff5a67;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.18);
+}
+
+html {
+  background-color: #000000;
+  color: #f4f4f5;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #18181b;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #27272a;
+}
+
+/* Subtle static noise */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  z-index: 999;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

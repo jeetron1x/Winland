@@ -1,26 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-black text-secondary antialiased selection:bg-primary-20 selection:text-primary-80">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Winland — Dynamic Island & Modern Taskbar for Windows</title>
-    <meta name="description" content="Your PC, with an island. Music, live widgets, and system status right at the top edge of your desktop for Windows 10 and 11. Download the official installer." />
+    <meta name="description" content="The Next-Generation Dynamic Island & Modern Taskbar for Windows 10 & 11. Hardware-accelerated DirectX composition, sub-millisecond spring dynamics, and local-only WASAPI processing." />
     <link rel="canonical" href="https://winland.cc.cd/" />
-
-    <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://winland.cc.cd/" />
     <meta property="og:title" content="Winland — Dynamic Island & Modern Taskbar for Windows" />
-    <meta property="og:description" content="Your PC, with an island. Music, live widgets, and system status right at the top edge of your desktop for Windows 10 and 11." />
+    <meta property="og:description" content="The Next-Generation Dynamic Island & Modern Taskbar for Windows 10 & 11." />
+    <meta property="og:image" content="/images/desktop-hero-wallpaper.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Winland — Dynamic Island & Modern Taskbar for Windows" />
-    <meta name="twitter:description" content="Your PC, with an island. Music, live widgets, and system status right at the top edge of your desktop for Windows 10 and 11." />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 16'%3E%3Crect width='32' height='16' rx='8' fill='%2300f2fe'/%3E%3C/svg%3E" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 16'%3E%3Crect width='32' height='16' rx='8' fill='%23fb6e90'/%3E%3C/svg%3E" />
   </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+  <body class="bg-neutral text-secondary font-sans overflow-x-hidden min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
